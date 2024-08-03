@@ -52,6 +52,15 @@ function checkLength(input, min, max) {
 
 }
 
+//Check Passwords Match
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showFailure(input2, "Passwords are not a match");
+  } else {
+    showSuccess(input2);
+  }
+}
+
 // Get Fieldname
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
@@ -65,7 +74,8 @@ form.addEventListener('submit', function(e) {
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
+  checkPasswordsMatch(password, password2);
 });
 
-
-
+// The beauty of this system is that you can continuously adapt it to add more fields. More testing can also be applied to the functions that are 'checking' the inputs from the fields. 
+// We can also add CSS functionality for different types of scenarios as well and customize what they will look like by adding to the "custom properties" (or CSS variables)

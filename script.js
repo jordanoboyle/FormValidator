@@ -29,11 +29,15 @@ function checkRequired(inputArray) {
   inputArray.forEach(input => {
     console.log(input.value);
     if (input.value.trim() === '') {
-      showFailure(input, 'is required');
+      console.log(input.id);  //As you can see we are attached to the IDs of the form here
+      showFailure(input, `${getFieldName(input)} is required`);
     } else {
       showSuccess(input);
     }
   })
+}
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
 //HERE IS THE REFACTOR THAT IS MORE SCALEABLE. 

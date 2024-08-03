@@ -34,8 +34,21 @@ function checkRequired(inputArray) {
     } else {
       showSuccess(input);
     }
-  })
+  });
 }
+// Check Length of field inputs (be sure to keep track of where these functions are applied)
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showFailure(input, `${getFieldName(input)} must be at least ${min} characters`);
+  } else if (input.value.length > max) {
+    showFailure(input, `${getFieldName(input)} must be less that ${max} characters`);
+  } else {
+    showSuccess(input);
+  }
+
+}
+
+// Get Fieldname
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
@@ -45,38 +58,9 @@ form.addEventListener('submit', function(e) {
   e.preventDefault();
 
   checkRequired([username, email, password, password2]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
 });
 
-// //BELOW IS THE INITIAL BUILD WITH CONDITIONAL IF STATEMENTS.
-// //we need an event listener here for our form:
-// form.addEventListener('submit', function(e) {
-//   e.preventDefault();  // this prevents the form from doing what it's supposed to do (think REACT)
-//   console.log("submit");
-//   console.log(username.value);
 
-//   if (username.value === '') {
-//     // alert("username required");
-//     showFailure(username, "Username is required");
-//   } else {
-//     showSuccess(username);
-//   }
-//   if (email.value === '') {
-//     // alert("email required");
-//     showFailure(email, "Email is required");
-//   } else if (!isEmailValid(email.value)) {
-//     showFailure(email, "Email is not valid.");
-//   } else {
-//     showSuccess(email);
-//   }
-//   if (password.value === '') {
-//     showFailure(password, 'Password required');
-//   } else {
-//     showSuccess(password);
-//   }
-//   if (password2.value === '') {
-//     showFailure(password2, 'Password2 required');
-//   } else {
-//     showSuccess(password2);
-//   }
-// });
 

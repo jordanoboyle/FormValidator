@@ -19,9 +19,13 @@ function showSuccess(input) {
 }
 
 //Validate Email
-function isEmailValid(email) {
+function checkEmail(input) {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLocaleLowerCase()); //use the .test() method here to see if the email String matches the the REGEX. If the match is successful, a boolean will be returned (true or false)
+  if (re.test(input.value)) {
+    showSuccess(input);
+  } else {
+    showFailure(input, "Email is not valid");
+  } //use the .test() method here to see if the email String matches the the REGEX. If the match is successful, a boolean will be returned (true or false)
 }
 
 //Check Required fields
@@ -43,7 +47,7 @@ function checkLength(input, min, max) {
   } else if (input.value.length > max) {
     showFailure(input, `${getFieldName(input)} must be less that ${max} characters`);
   } else {
-    showSuccess(input);
+    showSuccess(input); //Remember that this is pulling our green border from our CSS tie in
   }
 
 }
@@ -60,6 +64,7 @@ form.addEventListener('submit', function(e) {
   checkRequired([username, email, password, password2]);
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
+  checkEmail(email);
 });
 
 

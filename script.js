@@ -24,36 +24,50 @@ function isEmailValid(email) {
   return re.test(String(email).toLocaleLowerCase()); //use the .test() method here to see if the email String matches the the REGEX. If the match is successful, a boolean will be returned (true or false)
 }
 
-//we need an event listener here for our form:
+//Check Required fields
+function checkRequired(inputArray) {
+  inputArray.forEach(input => {
+    console.log(input.value);
+  })
+}
 
+//HERE IS THE REFACTOR THAT IS MORE SCALEABLE. 
 form.addEventListener('submit', function(e) {
-  e.preventDefault();  // this prevents the form from doing what it's supposed to do (think REACT)
-  console.log("submit");
-  console.log(username.value);
+  e.preventDefault();
 
-  if (username.value === '') {
-    // alert("username required");
-    showFailure(username, "Username is required");
-  } else {
-    showSuccess(username);
-  }
-  if (email.value === '') {
-    // alert("email required");
-    showFailure(email, "Email is required");
-  } else if (!isEmailValid(email.value)) {
-    showFailure(email, "Email is not valid.");
-  } else {
-    showSuccess(email);
-  }
-  if (password.value === '') {
-    showFailure(password, 'Password required');
-  } else {
-    showSuccess(password);
-  }
-  if (password2.value === '') {
-    showFailure(password2, 'Password2 required');
-  } else {
-    showSuccess(password2);
-  }
+  checkRequired([username, email, password, password2]);
 });
+
+// //BELOW IS THE INITIAL BUILD WITH CONDITIONAL IF STATEMENTS.
+// //we need an event listener here for our form:
+// form.addEventListener('submit', function(e) {
+//   e.preventDefault();  // this prevents the form from doing what it's supposed to do (think REACT)
+//   console.log("submit");
+//   console.log(username.value);
+
+//   if (username.value === '') {
+//     // alert("username required");
+//     showFailure(username, "Username is required");
+//   } else {
+//     showSuccess(username);
+//   }
+//   if (email.value === '') {
+//     // alert("email required");
+//     showFailure(email, "Email is required");
+//   } else if (!isEmailValid(email.value)) {
+//     showFailure(email, "Email is not valid.");
+//   } else {
+//     showSuccess(email);
+//   }
+//   if (password.value === '') {
+//     showFailure(password, 'Password required');
+//   } else {
+//     showSuccess(password);
+//   }
+//   if (password2.value === '') {
+//     showFailure(password2, 'Password2 required');
+//   } else {
+//     showSuccess(password2);
+//   }
+// });
 
